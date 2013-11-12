@@ -4,7 +4,7 @@ import net.minecraft.tileentity.TileEntity;
 
 public class TileEntityChunkResetter extends TileEntity
 {
-  public void updateEntity()
-  {
-  }
+    public void updateEntity()
+    {
+    }
 }

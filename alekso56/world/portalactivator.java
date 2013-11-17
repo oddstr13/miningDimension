@@ -53,7 +53,7 @@ public class portalactivator implements ICommand
     @Override
     public boolean canCommandSenderUseCommand(ICommandSender icommandsender)
     {
-        return true;
+        return icommandsender.canCommandSenderUseCommand(2, "/tm");
     }
 
     @Override

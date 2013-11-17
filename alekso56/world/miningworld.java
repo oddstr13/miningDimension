@@ -16,9 +16,7 @@ import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.DimensionManager;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
@@ -28,7 +26,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 public class miningworld
 {
     @Mod.Instance("alekso56's miningworld")
-    public static miningworld instance;
+    public static miningworld instancez;
     public static int IblockID;
     public static int fblockid;
     public static int dimension;
@@ -37,9 +35,6 @@ public class miningworld
     public static String sendMSG;
     public static boolean spawnMonsters;
     public static boolean spawnAnimals;
-    public static boolean generateDungeons;
-    public static boolean generateLakes;
-    public static boolean generateLavaLakes;
     public static BiomeGenMining miningBiome;
 
     @Mod.EventHandler
@@ -49,8 +44,9 @@ public class miningworld
     }
 
     @Mod.EventHandler
-    public void load(FMLInitializationEvent event)
+    public void serverLoad(FMLServerStartingEvent event)
     {
+        event.registerServerCommand(new portalactivator());
         miningBiome = new BiomeGenMining(biomeID);
 
         if (DimensionManager.isDimensionRegistered(dimension))
@@ -63,17 +59,6 @@ public class miningworld
         FMLInterModComms.sendMessage("BuildCraft|Energy", "oil-gen-exclude", miningBiome.biomeID + "");
         BiomeManager.addStrongholdBiome(miningBiome);
         BiomeDictionary.registerBiomeType(miningBiome, new BiomeDictionary.Type[] { BiomeDictionary.Type.MOUNTAIN });
-    }
-
-    @Mod.EventHandler
-    public void serverLoad(FMLServerStartingEvent event)
-    {
-        event.registerServerCommand(new portalactivator());
-    }
-
-    @Mod.EventHandler
-    public void postInit(FMLPostInitializationEvent event)
-    {
         miningBiome.clearMonsters();
         System.out.println("Loaded.");
         System.out.println("Dimension registered with ID: " + dimension + ".");
@@ -93,7 +78,6 @@ public class miningworld
         }
     }
 
-    @SuppressWarnings("unchecked")
     public static EntityPlayerMP getPlayerForName(String name)
     {
         // tru exact match first.

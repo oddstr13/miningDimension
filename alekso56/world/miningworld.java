@@ -16,10 +16,16 @@ import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.DimensionManager;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerAboutToStartEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @Mod(modid = "alekso56's miningworld", name = "alekso56's miningworld", version = "1.0")
 @NetworkMod(clientSideRequired = false, serverSideRequired = true)
@@ -27,12 +33,8 @@ public class miningworld
 {
     @Mod.Instance("alekso56's miningworld")
     public static miningworld instancez;
-    public static int IblockID;
-    public static int fblockid;
     public static int dimension;
     public static int biomeID;
-    public static boolean enableMSG;
-    public static String sendMSG;
     public static boolean spawnMonsters;
     public static boolean spawnAnimals;
     public static BiomeGenMining miningBiome;
@@ -42,8 +44,16 @@ public class miningworld
     {
         config.loadConfig(new Configuration(event.getSuggestedConfigurationFile()));
     }
+    
+    @Mod.EventHandler
+    @SideOnly(Side.CLIENT)
+    public void clientcrap(FMLInitializationEvent event){
+    	 DimensionManager.registerProviderType(dimension, Worldmining.class, false);
+    	 miningBiome = new BiomeGenMining(biomeID);
+    }
 
     @Mod.EventHandler
+    @SideOnly(Side.SERVER)
     public void serverLoad(FMLServerStartingEvent event)
     {
         event.registerServerCommand(new portalactivator());
@@ -54,71 +64,16 @@ public class miningworld
             System.out.println("Failed to register the Mining Dimension with the ID " + dimension + ". Please pick another one!");
         }
 
-        DimensionManager.registerProviderType(dimension, WorldProviderMining.class, false);
+        DimensionManager.registerProviderType(dimension, Worldmining.class, false);
         DimensionManager.registerDimension(dimension, dimension);
         FMLInterModComms.sendMessage("BuildCraft|Energy", "oil-gen-exclude", miningBiome.biomeID + "");
         BiomeManager.addStrongholdBiome(miningBiome);
         BiomeDictionary.registerBiomeType(miningBiome, new BiomeDictionary.Type[] { BiomeDictionary.Type.MOUNTAIN });
         miningBiome.clearMonsters();
-        System.out.println("Loaded.");
-        System.out.println("Dimension registered with ID: " + dimension + ".");
+        //System.out.println("Loaded.");
+        //System.out.println("Dimension registered with ID: " + dimension + ".");
     }
-
-    public static EntityPlayerMP getPlayerForName(ICommandSender sender, String name)
-    {
-        EntityPlayerMP var2 = PlayerSelector.matchOnePlayer(sender, name);
-
-        if (var2 != null)
-        {
-            return var2;
-        }
-        else
-        {
-            return getPlayerForName(name);
-        }
-    }
-
-    public static EntityPlayerMP getPlayerForName(String name)
-    {
-        // tru exact match first.
-        {
-            EntityPlayerMP tempPlayer = FMLCommonHandler.instance().getMinecraftServerInstance().getConfigurationManager().getPlayerForUsername(name);
-
-            if (tempPlayer != null)
-            {
-                return tempPlayer;
-            }
-        }
-        // now try getting others
-        List<EntityPlayerMP> possibles = new LinkedList<EntityPlayerMP>();
-        ArrayList<EntityPlayerMP> temp = (ArrayList<EntityPlayerMP>) FMLCommonHandler.instance().getSidedDelegate().getServer().getConfigurationManager().playerEntityList;
-
-        for (EntityPlayerMP player : temp)
-        {
-            if (player.username.equalsIgnoreCase(name))
-            {
-                return player;
-            }
-
-            if (player.username.toLowerCase().contains(name.toLowerCase()))
-            {
-                possibles.add(player);
-            }
-        }
-
-        if (possibles.size() == 1)
-        {
-            return possibles.get(0);
-        }
-
-        return null;
-    }
-    public static boolean RunningDeobfuscated = true;
     public static WorldType superCustom = null;
-    public static boolean BackedOut = false;
-    public static boolean SaveLoaded = false;
-    public static World theWorld = null;
-    public static boolean WorldCustomized = false;
     static double SeaLevelScale = 0.5D;
     static int CPGNoiseGen1Octaves = 16;
     static int CPGNoiseGen2Octaves = 16;
@@ -205,17 +160,4 @@ public class miningworld
     static int CPGPopulateDungeonCount = 8;
     static int CPGPopulateDungeonYMin = 0;
     static int CPGPopulateDungeonYRange = 256;
-    private boolean ButtonAdded;
-
-    public static String getWorldMessage()
-    {
-        String msg = String.copyValueOf(sendMSG.toCharArray());
-
-        if (enableMSG)
-        {
-            return msg;
-        }
-
-        return null;
-    }
 }

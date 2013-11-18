@@ -4,7 +4,7 @@ import net.minecraft.world.WorldProvider;
 import net.minecraft.world.biome.WorldChunkManagerHell;
 import net.minecraft.world.chunk.IChunkProvider;
 
-public class WorldProviderMining extends WorldProvider
+public class Worldmining extends WorldProvider
 {
     public boolean canRespawnHere()
     {
@@ -14,11 +14,6 @@ public class WorldProviderMining extends WorldProvider
     public IChunkProvider createChunkGenerator()
     {
         return new ChunkProviderMining(this.worldObj, this.worldObj.getSeed(), true);
-    }
-
-    public String getDepartMessage()
-    {
-        return "Leaving the Mining World";
     }
 
     public String getDimensionName()
@@ -34,11 +29,6 @@ public class WorldProviderMining extends WorldProvider
     public String getSaveFolder()
     {
         return "Mining World";
-    }
-
-    public String getWelcomeMessage()
-    {
-        return "Entering the Mining World";
     }
 
     public boolean getWorldHasVoidParticles()

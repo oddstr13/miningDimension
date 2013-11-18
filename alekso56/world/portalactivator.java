@@ -2,12 +2,14 @@ package alekso56.world;
 
 import java.util.List;
 
-import net.minecraft.command.ICommand;
+import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.command.PlayerNotFoundException;
+import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 
-public class portalactivator implements ICommand
+public class portalactivator extends CommandBase
 {
     @Override
     public int compareTo(Object arg0)
@@ -38,15 +40,34 @@ public class portalactivator implements ICommand
     @Override
     public void processCommand(ICommandSender icommandsender, String[] astring)
     {
-        EntityPlayerMP playermp = miningworld.getPlayerForName(icommandsender, icommandsender.getCommandSenderName());
+    	EntityPlayerMP playermp = null;
+    	if (astring.length < 2)
+        {
+            throw new WrongUsageException("Playername <letter o for overworld or something else for miningworld>", new Object[0]);
+        }
 
-        if (playermp.dimension != miningworld.dimension)
+        if (astring.length != 2 && astring.length != 4)
+        {
+            playermp = getCommandSenderAsPlayer(icommandsender);
+        }
+        else
+        {
+            playermp = getPlayer(icommandsender, astring[0]);
+
+            if (playermp == null)
+            {
+                throw new PlayerNotFoundException();
+            }
+        }
+        if (playermp.dimension != miningworld.dimension && !astring[1].equalsIgnoreCase("o"))
         {
             MinecraftServer.getServer().getConfigurationManager().transferPlayerToDimension(playermp, miningworld.dimension);
+           // System.out.println("transfer mining");
         }
-        else if (astring[0].equalsIgnoreCase("o") && (astring.length > 0))
+        else if (astring[1].equalsIgnoreCase("o") && playermp.dimension != 0)
         {
             MinecraftServer.getServer().getConfigurationManager().transferPlayerToDimension(playermp, 0);
+            //System.out.println("ntransfer o");
         }
     }
 

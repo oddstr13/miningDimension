@@ -27,7 +27,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@Mod(modid = "alekso56's miningworld", name = "alekso56's miningworld", version = "1.0")
+@Mod(modid = "alekso56's miningworld", name = "alekso56's miningworld", version = "1.2")
 @NetworkMod(clientSideRequired = false, serverSideRequired = true)
 public class miningworld
 {
@@ -53,7 +53,6 @@ public class miningworld
     }
 
     @Mod.EventHandler
-    @SideOnly(Side.SERVER)
     public void serverLoad(FMLServerStartingEvent event)
     {
         event.registerServerCommand(new portalactivator());

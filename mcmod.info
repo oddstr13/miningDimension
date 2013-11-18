@@ -1,0 +1,17 @@
+[
+{
+  "modid": "Alekso56s mining World",
+  "name": "Alekso56's mining world",
+  "description": "This mod adds a new Dimension especially for mining. It is pretty much like the overworld, just different. :-)",
+  "mcversion": "1.6.4",
+  "version": "1.2",
+  "logoFile": "",
+  "url": "http://www.alekbnc.tk",
+  "updateUrl": "http://www.alekbnc.tk",
+  "authors": ["Alekso56"],
+  "credits": "alekso56 did everything ,_,",
+  "parent": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

@@ -20,19 +20,20 @@ public class BiomeGenMining extends BiomeGenBase
         setDisableRain();
         setTemperatureRainfall(0.8F, 0.0F);
         setMinMaxHeight(0.0F, 0.0F);
-        this.topBlock = ((byte)Block.grass.blockID);
+        /* TODO: Refering by block id? Might be deprecated due to future removal of block IDs */
+        this.topBlock    = ((byte)Block.grass.blockID);
         this.fillerBlock = ((byte)Block.dirt.blockID);
-        this.theBiomeDecorator.treesPerChunk = -999;
-        this.theBiomeDecorator.flowersPerChunk = -999;
+        this.theBiomeDecorator.treesPerChunk        = -999;
+        this.theBiomeDecorator.flowersPerChunk      = -999;
         this.theBiomeDecorator.bigMushroomsPerChunk = -999;
-        this.theBiomeDecorator.clayPerChunk = -999;
-        this.theBiomeDecorator.deadBushPerChunk = -999;
-        this.theBiomeDecorator.mushroomsPerChunk = -999;
-        this.theBiomeDecorator.reedsPerChunk = 100;
-        this.theBiomeDecorator.sandPerChunk = -999;
-        this.theBiomeDecorator.sandPerChunk2 = -999;
-        this.theBiomeDecorator.treesPerChunk = -999;
-        this.theBiomeDecorator.waterlilyPerChunk = -999;
+        this.theBiomeDecorator.clayPerChunk         = -999;
+        this.theBiomeDecorator.deadBushPerChunk     = -999;
+        this.theBiomeDecorator.mushroomsPerChunk    = -999;
+        this.theBiomeDecorator.reedsPerChunk        =  100;
+        this.theBiomeDecorator.sandPerChunk         = -999;
+        this.theBiomeDecorator.sandPerChunk2        = -999;
+        this.theBiomeDecorator.treesPerChunk        = -999;
+        this.theBiomeDecorator.waterlilyPerChunk    = -999;
     }
 
     public void decorate(World par1World, Random par2Random, int par3, int par4)
@@ -42,9 +43,9 @@ public class BiomeGenMining extends BiomeGenBase
 
         for (int var6 = 0; var6 < var5; var6++)
         {
-            int var7 = par3 + par2Random.nextInt(16);
-            int var8 = par2Random.nextInt(28) + 4;
-            int var9 = par4 + par2Random.nextInt(16);
+            int var7  = par3 + par2Random.nextInt(16);
+            int var8  = par2Random.nextInt(28) + 4;
+            int var9  = par4 + par2Random.nextInt(16);
             int var10 = par1World.getBlockId(var7, var8, var9);
 
             if (var10 == Block.stone.blockID)
@@ -58,9 +59,9 @@ public class BiomeGenMining extends BiomeGenBase
 
         for (int var6 = 0; var6 < var5; var6++)
         {
-            int var7 = par3 + par2Random.nextInt(16);
-            int var8 = par2Random.nextInt(28) + 4;
-            int var9 = par4 + par2Random.nextInt(16);
+            int var7  = par3 + par2Random.nextInt(16);
+            int var8  = par2Random.nextInt(28) + 4;
+            int var9  = par4 + par2Random.nextInt(16);
             int var10 = par1World.getBlockId(var7, var8, var9);
 
             if (var10 == Block.stone.blockID)

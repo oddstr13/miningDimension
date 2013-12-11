@@ -55,18 +55,18 @@ public class ChunkProviderMining implements IChunkProvider
 
     public ChunkProviderMining(World world, long l, boolean flag)
     {
-        stoneNoise = new double[256];
-        caveGenerator = new MapGenCaves();
-        strongholdGenerator = new MapGenStronghold();
+        stoneNoise                = new double[256];
+        caveGenerator             = new MapGenCaves();
+        strongholdGenerator       = new MapGenStronghold();
         scatteredFeatureGenerator = new MapGenScatteredFeature();
-        villageGenerator = new MapGenVillage();
-        mineshaftGenerator = new MapGenMineshaft();
-        ravineGenerator = new MapGenRavine();
-        unusedIntArray32x32 = new int[32][32];
-        worldObj = world;
-        mapFeaturesEnabled = flag;
-        rand = new Random(l);
-        genSeed = l;
+        villageGenerator          = new MapGenVillage();
+        mineshaftGenerator        = new MapGenMineshaft();
+        ravineGenerator           = new MapGenRavine();
+        unusedIntArray32x32       = new int[32][32];
+        worldObj                  = world;
+        mapFeaturesEnabled        = flag;
+        rand                      = new Random(l);
+        genSeed                   = l;
         noiseGen1 = new NoiseGeneratorOctaves(rand,
                                               miningworld.CPGNoiseGen1Octaves);
         noiseGen2 = new NoiseGeneratorOctaves(rand,

@@ -1,5 +1,11 @@
 miningDimension
 ===============
+This Minecraft Forge mod is made to replace mystcraft for TurtleKingdom's mining world.
 
-This mod is an attempt at replacing mystcraft on the server,  currently it needs
-an portal kind of thing to jump into.
+
+Todo
+====
+ * Config option for world height.
+ * Add portals specific to the mining world.
+ * Remove spawning of nether portals.
+ * Flat bedrock.
